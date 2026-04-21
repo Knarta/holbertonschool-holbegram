@@ -95,6 +95,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           backgroundColor: WidgetStateProperty.all(
                             const Color.fromARGB(218, 226, 37, 24),
                           ),
+                          shape: WidgetStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
                         ),
                         onPressed: () {},
                         child: const Text(
