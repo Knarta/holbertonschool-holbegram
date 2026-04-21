@@ -24,6 +24,34 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   late bool _passwordVisible;
 
+  void _handleSignUp() {
+    final email = widget.emailController.text.trim();
+    final username = widget.usernameController.text.trim();
+    final password = widget.passwordController.text;
+    final confirmPassword = widget.passwordConfirmController.text;
+
+    if (email.isEmpty ||
+        username.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields.')),
+      );
+      return;
+    }
+
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Passwords do not match.')),
+      );
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Sign up action triggered.')),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -122,6 +150,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                         onPressed: () {},
+                        onPressed: _handleSignUp,
                         child: const Text(
                           'Sign up',
                           style: TextStyle(color: Colors.white),
