@@ -149,7 +149,6 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                         ),
-                        onPressed: () {},
                         onPressed: _handleSignUp,
                         child: const Text(
                           'Sign up',
