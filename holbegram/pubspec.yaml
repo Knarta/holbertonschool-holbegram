@@ -62,6 +62,10 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+  fonts:
+    - family: Billabong
+      fonts:
+        - asset: assets/fonts/FontsFree-Net-Billabong.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
