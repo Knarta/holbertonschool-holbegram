@@ -3,7 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  try {
+    await Firebase.initializeApp();
+  } catch (e) {
+    // Allow app startup before Firebase is fully configured.
+    debugPrint('Firebase init skipped: $e');
+  }
   runApp(const MyApp());
 }
 
