@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:holbegram/methods/auth_methods.dart';
+import 'package:holbegram/screens/home_screen.dart';
 import 'package:holbegram/screens/signup_screen.dart';
 import 'package:holbegram/widgets/text_field.dart';
 
@@ -20,6 +22,32 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   late bool _passwordVisible;
+  final AuthMethode _authMethode = AuthMethode();
+
+  Future<void> _handleLogin() async {
+    final String res = await _authMethode.login(
+      email: widget.emailController.text.trim(),
+      password: widget.passwordController.text.trim(),
+    );
+
+    if (!mounted) return;
+
+    if (res == 'success') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Login')),
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(res)),
+    );
+  }
 
   @override
   void initState() {
@@ -102,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: _handleLogin,
                         child: const Text(
                           'Log in',
                           style: TextStyle(color: Colors.white),
