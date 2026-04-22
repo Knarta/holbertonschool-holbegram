@@ -17,27 +17,43 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const _AppInitializer(),
+      home: const AppInitializer(),
     );
   }
 }
 
-class _AppInitializer extends StatelessWidget {
-  const _AppInitializer();
+class AppInitializer extends StatefulWidget {
+  const AppInitializer({super.key});
+
+  @override
+  State<AppInitializer> createState() => _AppInitializerState();
+}
+
+class _AppInitializerState extends State<AppInitializer> {
+  late final Future<FirebaseApp> _firebaseInitialization;
+
+  @override
+  void initState() {
+    super.initState();
+    _firebaseInitialization = Firebase.initializeApp();
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<FirebaseApp>(
-      future: Firebase.initializeApp(),
+      future: _firebaseInitialization,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
 
         if (snapshot.hasError) {
           return Scaffold(
+            backgroundColor: Colors.white,
             body: Center(
               child: Padding(
                 padding: const EdgeInsets.all(24),
