@@ -4,12 +4,7 @@ import 'package:holbegram/screens/login_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  try {
-    await Firebase.initializeApp();
-  } catch (e) {
-    // Allow app startup before Firebase is fully configured.
-    debugPrint('Firebase init skipped: $e');
-  }
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
