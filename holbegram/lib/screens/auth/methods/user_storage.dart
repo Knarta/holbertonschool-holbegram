@@ -4,8 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class StorageMethods {
-  final String cloudinaryUrl =
-      "https://api.cloudinary.com/v1_1/your-cloud-name/image/upload";
+  final String cloudinaryUrl = "https://api.cloudinary.com/v1_1/your-cloud-name/image/upload";
   final String cloudinaryPreset = "your-upload-preset";
 
   Future<String> uploadImageToStorage(
@@ -20,11 +19,7 @@ class StorageMethods {
     request.fields['folder'] = childName;
     request.fields['public_id'] = isPost ? uniqueId : '';
 
-    var multipartFile = http.MultipartFile.fromBytes(
-      'file',
-      file,
-      filename: '$uniqueId.jpg',
-    );
+    var multipartFile = http.MultipartFile.fromBytes('file', file, filename: '$uniqueId.jpg');
     request.files.add(multipartFile);
 
     var response = await request.send();

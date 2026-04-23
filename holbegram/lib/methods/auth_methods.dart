@@ -1,9 +1,10 @@
+// ignore_for_file: unused_import
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
-// ignore: unused_import
 import 'package:http/http.dart' as http;
-import 'package:holbegram/models/user.dart' as model;
+import 'package:holbegram/models/user.dart';
 
 class AuthMethode {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -52,7 +53,7 @@ class AuthMethode {
         return 'Signup failed';
       }
 
-      final model.User users = model.User(
+      final Users users = Users(
         uid: user.uid,
         email: email,
         username: username,
