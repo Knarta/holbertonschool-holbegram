@@ -24,6 +24,7 @@ class _AddPictureState extends State<AddPicture> {
   Uint8List? _image;
   final ImagePicker _picker = ImagePicker();
   final AuthMethode _authMethode = AuthMethode();
+  bool _isLoading = false;
 
   void selectImageFromGallery() async {
     final XFile? pickedFile = await _picker.pickImage(
@@ -65,6 +66,11 @@ class _AddPictureState extends State<AddPicture> {
   }
 
   Future<void> _handleNext() async {
+    if (_isLoading) return;
+    setState(() {
+      _isLoading = true;
+    });
+
     final String email = widget.email;
     final String username = widget.username;
     final String password = widget.password;
@@ -77,6 +83,9 @@ class _AddPictureState extends State<AddPicture> {
     );
 
     if (!mounted) return;
+    setState(() {
+      _isLoading = false;
+    });
 
     if (res == 'success') {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -155,8 +164,14 @@ class _AddPictureState extends State<AddPicture> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: _handleNext,
-                child: const Text('Next'),
+                onPressed: _isLoading ? null : _handleNext,
+                child: _isLoading
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Text('Next'),
               ),
             ),
           ],

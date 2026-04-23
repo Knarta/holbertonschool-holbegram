@@ -53,6 +53,13 @@ class AuthMethode {
     }
 
     try {
+      final StorageMethods storageMethods = StorageMethods();
+      final String photoUrl = await storageMethods.uploadImageToStorage(
+        false,
+        'profilePics',
+        file,
+      );
+
       final UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -63,13 +70,6 @@ class AuthMethode {
       if (user == null) {
         return 'Signup failed';
       }
-
-      final StorageMethods storageMethods = StorageMethods();
-      final String photoUrl = await storageMethods.uploadImageToStorage(
-        false,
-        'profilePics',
-        file,
-      );
 
       final Users users = Users(
         uid: user.uid,
@@ -88,8 +88,8 @@ class AuthMethode {
       return 'success';
     } on FirebaseAuthException catch (e) {
       return e.message ?? 'Signup failed';
-    } catch (_) {
-      return 'Signup failed';
+    } catch (e) {
+      return e.toString().replaceFirst('Exception: ', '');
     }
   }
 }

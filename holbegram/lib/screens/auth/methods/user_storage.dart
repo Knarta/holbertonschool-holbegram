@@ -12,6 +12,13 @@ class StorageMethods {
       String childName,
       Uint8List file,
   ) async {
+    if (cloudinaryUrl.contains('your-cloud-name') ||
+        cloudinaryPreset == 'your-upload-preset') {
+      throw Exception(
+        'Cloudinary is not configured. Replace your-cloud-name and your-upload-preset in user_storage.dart',
+      );
+    }
+
     String uniqueId = const Uuid().v1();
     var uri = Uri.parse(cloudinaryUrl);
     var request = http.MultipartRequest('POST', uri);
@@ -23,12 +30,14 @@ class StorageMethods {
     request.files.add(multipartFile);
 
     var response = await request.send();
+    var responseData = await response.stream.toBytes();
     if (response.statusCode == 200) {
-      var responseData = await response.stream.toBytes();
       var jsonResponse = jsonDecode(String.fromCharCodes(responseData));
       return jsonResponse['secure_url'];
     } else {
-      throw Exception('Failed to upload image to Cloudinary');
+      throw Exception(
+        'Failed to upload image to Cloudinary (${response.statusCode}): ${String.fromCharCodes(responseData)}',
+      );
     }
   }
 }
