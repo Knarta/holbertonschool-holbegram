@@ -79,7 +79,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   fontSize: 50,
                 ),
               ),
-              const Icon(Icons.camera_alt_outlined, size: 52),
+              Image.asset(
+                'assets/images/logo.png',
+                width: 80,
+                height: 60,
+                errorBuilder: (_, __, ___) {
+                  return const Icon(Icons.camera_alt_outlined, size: 52);
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
