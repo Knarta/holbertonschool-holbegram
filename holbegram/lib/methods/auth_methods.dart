@@ -53,12 +53,17 @@ class AuthMethode {
     }
 
     try {
+      String photoUrl = '';
       final StorageMethods storageMethods = StorageMethods();
-      final String photoUrl = await storageMethods.uploadImageToStorage(
-        false,
-        'profilePics',
-        file,
-      );
+      try {
+        photoUrl = await storageMethods.uploadImageToStorage(
+          false,
+          'profilePics',
+          file,
+        );
+      } catch (_) {
+        photoUrl = '';
+      }
 
       final UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(

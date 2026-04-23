@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:holbegram/methods/auth_methods.dart';
+import 'package:holbegram/screens/home.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPicture extends StatefulWidget {
@@ -75,6 +76,11 @@ class _AddPictureState extends State<AddPicture> {
     if (res == 'success') {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('success')),
+      );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const Home()),
+        (route) => false,
       );
       return;
     }
