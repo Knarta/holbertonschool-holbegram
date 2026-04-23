@@ -33,7 +33,7 @@ class AuthMethode {
       );
       return 'success';
     } on FirebaseAuthException catch (e) {
-      return e.message ?? 'Login failed';
+      return '${e.code}: ${e.message ?? 'Login failed'}';
     } catch (_) {
       return 'Login failed';
     }
@@ -92,7 +92,7 @@ class AuthMethode {
       await _firestore.collection('users').doc(user.uid).set(users.toJson());
       return 'success';
     } on FirebaseAuthException catch (e) {
-      return e.message ?? 'Signup failed';
+      return '${e.code}: ${e.message ?? 'Signup failed'}';
     } catch (e) {
       return e.toString().replaceFirst('Exception: ', '');
     }
