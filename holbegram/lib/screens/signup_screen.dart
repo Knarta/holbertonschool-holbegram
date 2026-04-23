@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:holbegram/screens/upload_image_screen.dart';
 import 'package:holbegram/widgets/text_field.dart';
 
 class SignUp extends StatefulWidget {
@@ -47,8 +48,15 @@ class _SignUpState extends State<SignUp> {
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Sign up action triggered.')),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddPicture(
+          email: email,
+          password: password,
+          username: username,
+        ),
+      ),
     );
   }
 

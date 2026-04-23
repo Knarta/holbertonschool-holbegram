@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:holbegram/methods/auth_methods.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPicture extends StatefulWidget {
@@ -22,6 +23,7 @@ class AddPicture extends StatefulWidget {
 class _AddPictureState extends State<AddPicture> {
   Uint8List? _image;
   final ImagePicker _picker = ImagePicker();
+  final AuthMethode _authMethode = AuthMethode();
 
   void selectImageFromGallery() async {
     final XFile? pickedFile = await _picker.pickImage(
@@ -62,8 +64,36 @@ class _AddPictureState extends State<AddPicture> {
     );
   }
 
+  Future<void> _handleNext() async {
+    final String email = widget.email;
+    final String username = widget.username;
+    final String password = widget.password;
+
+    final String res = await _authMethode.signUpUser(
+      email: email,
+      username: username,
+      password: password,
+      file: _image,
+    );
+
+    if (!mounted) return;
+
+    if (res == 'success') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('success')),
+      );
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(res)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String username = widget.username;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Add Picture')),
       body: Padding(
@@ -90,6 +120,14 @@ class _AddPictureState extends State<AddPicture> {
               ),
             ),
             const SizedBox(height: 24),
+            Text(
+              username,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -112,6 +150,14 @@ class _AddPictureState extends State<AddPicture> {
                   tooltip: 'Gallery',
                 ),
               ],
+            ),
+            const SizedBox(height: 28),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _handleNext,
+                child: const Text('Next'),
+              ),
             ),
           ],
         ),
