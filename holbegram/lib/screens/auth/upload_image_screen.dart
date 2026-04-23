@@ -47,6 +47,21 @@ class _AddPictureState extends State<AddPicture> {
     }
   }
 
+  Widget _buildActionIcon({
+    required String assetPath,
+    required IconData fallbackIcon,
+  }) {
+    return Image.asset(
+      assetPath,
+      width: 34,
+      height: 34,
+      fit: BoxFit.cover,
+      errorBuilder: (_, __, ___) {
+        return Icon(fallbackIcon, size: 30);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,13 +95,20 @@ class _AddPictureState extends State<AddPicture> {
               children: [
                 IconButton(
                   onPressed: selectImageFromCamera,
-                  icon: const Icon(Icons.camera_alt, size: 30),
+                  icon: _buildActionIcon(
+                    assetPath:
+                        'assets/images/WhatsApp_Image_2022-11-26_at_15.51.35_30.jpg',
+                    fallbackIcon: Icons.camera_alt,
+                  ),
                   tooltip: 'Camera',
                 ),
                 const SizedBox(width: 12),
                 IconButton(
                   onPressed: selectImageFromGallery,
-                  icon: const Icon(Icons.photo_library, size: 30),
+                  icon: _buildActionIcon(
+                    assetPath: 'assets/images/aaaaaaaaaaaaaaaaaaaaaaa.png',
+                    fallbackIcon: Icons.photo_library,
+                  ),
                   tooltip: 'Gallery',
                 ),
               ],
