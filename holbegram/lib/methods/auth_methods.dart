@@ -48,21 +48,20 @@ class AuthMethode {
     if (email.isEmpty || password.isEmpty || username.isEmpty) {
       return 'Please fill all the fields';
     }
-    if (file == null) {
-      return 'Please select an image';
-    }
 
     try {
       String photoUrl = '';
-      final StorageMethods storageMethods = StorageMethods();
-      try {
-        photoUrl = await storageMethods.uploadImageToStorage(
-          false,
-          'profilePics',
-          file,
-        );
-      } catch (_) {
-        photoUrl = '';
+      if (file != null) {
+        final StorageMethods storageMethods = StorageMethods();
+        try {
+          photoUrl = await storageMethods.uploadImageToStorage(
+            false,
+            'profilePics',
+            file,
+          );
+        } catch (_) {
+          photoUrl = '';
+        }
       }
 
       final UserCredential userCredential =
