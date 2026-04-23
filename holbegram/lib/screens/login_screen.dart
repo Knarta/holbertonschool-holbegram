@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holbegram/methods/auth_methods.dart';
-import 'package:holbegram/screens/home_screen.dart';
+import 'package:holbegram/screens/home.dart';
 import 'package:holbegram/screens/signup_screen.dart';
 import 'package:holbegram/widgets/text_field.dart';
 
@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const Home()),
       );
       return;
     }
