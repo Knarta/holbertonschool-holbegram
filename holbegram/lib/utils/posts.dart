@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:holbegram/providers/user_provider.dart';
 import 'package:holbegram/screens/pages/methods/post_storage.dart';
@@ -33,6 +34,13 @@ class _PostsState extends State<Posts> {
             itemCount: data.length,
             itemBuilder: (context, index) {
               final postData = data[index].data();
+              final String postId = (postData['postId'] ?? data[index].id)
+                  .toString();
+              final String? currentUid = FirebaseAuth.instance.currentUser?.uid;
+              final List<dynamic> savedBy =
+                  (postData['savedBy'] as List<dynamic>?) ?? <dynamic>[];
+              final bool isSaved =
+                  currentUid != null && savedBy.contains(currentUid);
               return SingleChildScrollView(
                 child: Container(
                   margin: EdgeInsetsGeometry.lerp(
@@ -67,9 +75,6 @@ class _PostsState extends State<Posts> {
                             const Spacer(),
                             IconButton(
                               onPressed: () async {
-                                final String postId =
-                                    (postData['postId'] ?? data[index].id)
-                                        .toString();
                                 final String publicId =
                                     (postData['publicId'] ?? '').toString();
                                 await _postStorage.deletePost(
@@ -117,7 +122,22 @@ class _PostsState extends State<Posts> {
                             const SizedBox(width: 8),
                             const Icon(Icons.send_outlined),
                             const Spacer(),
-                            const Icon(Icons.bookmark_border),
+                            IconButton(
+                              onPressed: currentUid == null
+                                  ? null
+                                  : () async {
+                                      await _postStorage.toggleSavePost(
+                                        postId: postId,
+                                        uid: currentUid,
+                                        isSaved: isSaved,
+                                      );
+                                    },
+                              icon: Icon(
+                                isSaved
+                                    ? Icons.bookmark
+                                    : Icons.bookmark_border,
+                              ),
+                            ),
                             if (user.username.isNotEmpty) const SizedBox.shrink(),
                           ],
                         ),

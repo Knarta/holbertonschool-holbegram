@@ -42,6 +42,29 @@ class PostStorage {
     }
   }
 
+  Future<void> toggleSavePost({
+    required String postId,
+    required String uid,
+    required bool isSaved,
+  }) async {
+    if (isSaved) {
+      await _firestore.collection('posts').doc(postId).update({
+        'savedBy': FieldValue.arrayRemove([uid]),
+      });
+      await _firestore.collection('users').doc(uid).update({
+        'saved': FieldValue.arrayRemove([postId]),
+      });
+      return;
+    }
+
+    await _firestore.collection('posts').doc(postId).update({
+      'savedBy': FieldValue.arrayUnion([uid]),
+    });
+    await _firestore.collection('users').doc(uid).update({
+      'saved': FieldValue.arrayUnion([postId]),
+    });
+  }
+
   Future<void> deletePost(String postId, String publicId) async {
     if (publicId.isNotEmpty) {
       // publicId is kept for Cloudinary deletion compatibility.
