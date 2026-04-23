@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:holbegram/models/user.dart';
+import 'package:holbegram/screens/auth/methods/user_storage.dart';
 
 class AuthMethode {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -47,6 +48,9 @@ class AuthMethode {
     if (email.isEmpty || password.isEmpty || username.isEmpty) {
       return 'Please fill all the fields';
     }
+    if (file == null) {
+      return 'Please select an image';
+    }
 
     try {
       final UserCredential userCredential =
@@ -60,12 +64,19 @@ class AuthMethode {
         return 'Signup failed';
       }
 
+      final StorageMethods storageMethods = StorageMethods();
+      final String photoUrl = await storageMethods.uploadImageToStorage(
+        false,
+        'profilePics',
+        file,
+      );
+
       final Users users = Users(
         uid: user.uid,
         email: email,
         username: username,
         bio: '',
-        photoUrl: '',
+        photoUrl: photoUrl,
         followers: [],
         following: [],
         posts: [],
