@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'dart:typed_data';
+import 'package:firebase_auth/firebase_auth.dart';
+// ignore: unused_import
+import 'package:http/http.dart' as http;
 import 'package:holbegram/models/user.dart' as model;
 
 class AuthMethode {
-  final fb_auth.FirebaseAuth _auth = fb_auth.FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<String> login({
@@ -21,7 +23,7 @@ class AuthMethode {
         password: password,
       );
       return 'success';
-    } on fb_auth.FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       return e.message ?? 'Login failed';
     } catch (_) {
       return 'Login failed';
@@ -39,12 +41,13 @@ class AuthMethode {
     }
 
     try {
-      final userCredential = await _auth.createUserWithEmailAndPassword(
+      final UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      final fb_auth.User? user = userCredential.user;
+      final User? user = userCredential.user;
       if (user == null) {
         return 'Signup failed';
       }
@@ -64,7 +67,7 @@ class AuthMethode {
 
       await _firestore.collection('users').doc(user.uid).set(users.toJson());
       return 'success';
-    } on fb_auth.FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       return e.message ?? 'Signup failed';
     } catch (_) {
       return 'Signup failed';
