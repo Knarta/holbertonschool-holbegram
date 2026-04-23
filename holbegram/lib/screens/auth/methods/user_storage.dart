@@ -40,4 +40,12 @@ class StorageMethods {
       );
     }
   }
+
+  Future<String> uploadImageToCloudinary(
+    bool isPost,
+    String childName,
+    Uint8List file,
+  ) async {
+    return uploadImageToStorage(isPost, childName, file);
+  }
 }
