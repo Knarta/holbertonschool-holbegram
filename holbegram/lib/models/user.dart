@@ -57,3 +57,5 @@ class Users {
     };
   }
 }
+
+typedef Userd = Users;
