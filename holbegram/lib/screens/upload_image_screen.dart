@@ -95,64 +95,105 @@ class _AddPictureState extends State<AddPicture> {
     final String username = widget.username;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Picture')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ClipOval(
-              child: SizedBox(
-                width: 120,
-                height: 120,
-                child: _image != null
-                    ? Image.memory(
-                        _image!,
-                        fit: BoxFit.cover,
-                      )
-                    : const Icon(Icons.person, size: 60),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              username,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: selectImageFromCamera,
-                  icon: const Icon(Icons.camera_alt, size: 30),
-                  tooltip: 'Camera',
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 8),
+              const Center(
+                child: Text(
+                  'Holbegram',
+                  style: TextStyle(
+                    fontFamily: 'Billabong',
+                    fontSize: 58,
+                  ),
                 ),
-                const SizedBox(width: 12),
-                IconButton(
-                  onPressed: selectImageFromGallery,
-                  icon: const Icon(Icons.photo_library, size: 30),
-                  tooltip: 'Gallery',
-                ),
-              ],
-            ),
-            const SizedBox(height: 28),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _handleNext,
-                child: _isLoading
-                    ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Text('Next'),
               ),
-            ),
-          ],
+              const Center(
+                child: Icon(
+                  Icons.blur_circular,
+                  color: Color.fromARGB(218, 226, 37, 24),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Hello, $username Welcome to Holbegram.',
+                style: const TextStyle(
+                  fontSize: 34,
+                  fontFamily: 'Billabong',
+                ),
+              ),
+              const Text(
+                'Choose an image from your gallery or take a new one.',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 28),
+              Center(
+                child: ClipOval(
+                  child: SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: _image != null
+                        ? Image.memory(
+                            _image!,
+                            fit: BoxFit.cover,
+                          )
+                        : const Icon(Icons.person_outline, size: 150),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 18),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: selectImageFromGallery,
+                    icon: const Icon(
+                      Icons.photo_library_outlined,
+                      size: 38,
+                      color: Color.fromARGB(218, 226, 37, 24),
+                    ),
+                    tooltip: 'Gallery',
+                  ),
+                  const SizedBox(width: 80),
+                  IconButton(
+                    onPressed: selectImageFromCamera,
+                    icon: const Icon(
+                      Icons.camera_alt_outlined,
+                      size: 38,
+                      color: Color.fromARGB(218, 226, 37, 24),
+                    ),
+                    tooltip: 'Camera',
+                  ),
+                ],
+              ),
+              const SizedBox(height: 18),
+              Center(
+                child: SizedBox(
+                  width: 130,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(218, 226, 37, 24),
+                      foregroundColor: Colors.white,
+                    ),
+                    onPressed: _isLoading ? null : _handleNext,
+                    child: _isLoading
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Text(
+                            'Next',
+                            style: TextStyle(fontSize: 22),
+                          ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

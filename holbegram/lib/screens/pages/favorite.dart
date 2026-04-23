@@ -17,7 +17,7 @@ class _FavoriteState extends State<Favorite> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Favorite',
+          'Favorites',
           style: TextStyle(
             fontFamily: 'Billabong',
             fontSize: 38,
@@ -47,21 +47,17 @@ class _FavoriteState extends State<Favorite> {
                   return const Center(child: Text('No saved posts yet'));
                 }
 
-                return GridView.builder(
-                  padding: const EdgeInsets.all(8),
+                return ListView.separated(
+                  padding: const EdgeInsets.all(0),
                   itemCount: data.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                    childAspectRatio: 1,
-                  ),
+                  separatorBuilder: (_, __) => const SizedBox(height: 6),
                   itemBuilder: (context, index) {
                     final postData = data[index].data();
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
+                    return SizedBox(
+                      height: 260,
+                      width: double.infinity,
                       child: Image.network(
-                        postData['postUrl'],
+                        (postData['postUrl'] ?? '').toString(),
                         fit: BoxFit.cover,
                       ),
                     );

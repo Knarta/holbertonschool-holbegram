@@ -122,7 +122,10 @@ class _AddImageState extends State<AddImage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Post'),
+        title: const Text(
+          'Add Image',
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
         actions: [
           TextButton(
             onPressed: _isLoading ? null : _handlePost,
@@ -132,7 +135,14 @@ class _AddImageState extends State<AddImage> {
                     height: 18,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Text('Post'),
+                : const Text(
+                    'Post',
+                    style: TextStyle(
+                      fontFamily: 'Billabong',
+                      fontSize: 36,
+                      color: Color.fromARGB(218, 226, 37, 24),
+                    ),
+                  ),
           ),
         ],
       ),
@@ -140,30 +150,54 @@ class _AddImageState extends State<AddImage> {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  width: double.infinity,
-                  height: 320,
-                  color: Colors.grey.shade200,
-                  child: _image != null
-                      ? Image.memory(
-                          _image!,
-                          fit: BoxFit.cover,
-                        )
-                      : const Center(
-                          child: Icon(Icons.image, size: 80),
-                        ),
+              const SizedBox(height: 8),
+              const Center(
+                child: Text(
+                  'Add Image',
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontFamily: 'Billabong',
+                  ),
+                ),
+              ),
+              const Center(
+                child: Text(
+                  'Choose an image from your gallery or take a one.',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ),
+              const SizedBox(height: 18),
+              TextField(
+                controller: _captionController,
+                maxLines: 2,
+                decoration: const InputDecoration(
+                  hintText: 'Write a caption...',
+                  border: InputBorder.none,
                 ),
               ),
               const SizedBox(height: 16),
-              TextField(
-                controller: _captionController,
-                maxLines: 3,
-                decoration: const InputDecoration(
-                  hintText: 'Write a caption...',
-                  border: OutlineInputBorder(),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: InkWell(
+                  onTap: selectImageFromGallery,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 90),
+                    width: 180,
+                    height: 180,
+                    color: const Color.fromARGB(255, 238, 238, 238),
+                    child: _image != null
+                        ? Image.memory(
+                            _image!,
+                            fit: BoxFit.cover,
+                          )
+                        : const Icon(
+                            Icons.add_to_photos_outlined,
+                            size: 72,
+                            color: Color.fromARGB(255, 14, 33, 51),
+                          ),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),

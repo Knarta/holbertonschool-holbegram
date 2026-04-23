@@ -64,14 +64,14 @@ class _BottomNavState extends State<BottomNav> {
           BottomNavyBarItem(
             icon: const Icon(Icons.home_outlined),
             title: const Text(
-              'Feed',
+              'Home',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25,
                 fontFamily: 'Billabong',
               ),
             ),
-            activeColor: Colors.red,
+            activeColor: const Color.fromARGB(218, 226, 37, 24),
             inactiveColor: Colors.black,
           ),
           BottomNavyBarItem(
@@ -84,7 +84,7 @@ class _BottomNavState extends State<BottomNav> {
                 fontFamily: 'Billabong',
               ),
             ),
-            activeColor: Colors.red,
+            activeColor: const Color.fromARGB(218, 226, 37, 24),
             inactiveColor: Colors.black,
           ),
           BottomNavyBarItem(
@@ -97,7 +97,7 @@ class _BottomNavState extends State<BottomNav> {
                 fontFamily: 'Billabong',
               ),
             ),
-            activeColor: Colors.red,
+            activeColor: const Color.fromARGB(218, 226, 37, 24),
             inactiveColor: Colors.black,
           ),
           BottomNavyBarItem(
@@ -110,7 +110,7 @@ class _BottomNavState extends State<BottomNav> {
                 fontFamily: 'Billabong',
               ),
             ),
-            activeColor: Colors.red,
+            activeColor: const Color.fromARGB(218, 226, 37, 24),
             inactiveColor: Colors.black,
           ),
           BottomNavyBarItem(
@@ -123,7 +123,7 @@ class _BottomNavState extends State<BottomNav> {
                 fontFamily: 'Billabong',
               ),
             ),
-            activeColor: Colors.red,
+            activeColor: const Color.fromARGB(218, 226, 37, 24),
             inactiveColor: Colors.black,
           ),
         ],

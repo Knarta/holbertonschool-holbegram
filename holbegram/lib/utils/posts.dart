@@ -142,6 +142,19 @@ class _PostsState extends State<Posts> {
                           ],
                         ),
                       ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 4,
+                          ),
+                          child: Text(
+                            '${((postData['likes'] as List<dynamic>?) ?? []).length} Liked',
+                            style: const TextStyle(fontSize: 26, fontFamily: 'Billabong'),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
