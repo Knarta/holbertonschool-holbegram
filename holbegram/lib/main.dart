@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:holbegram/screens/login_screen.dart';
 
@@ -32,10 +33,27 @@ class AppInitializer extends StatefulWidget {
 class _AppInitializerState extends State<AppInitializer> {
   late final Future<FirebaseApp> _firebaseInitialization;
 
+  Future<FirebaseApp> _initializeFirebase() {
+    if (kIsWeb) {
+      return Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey: 'AIzaSyDD9Zx_eLBRXVYimzxxe8VYm4MfKowGmao',
+          appId: '1:606191170752:android:fb76e66e7324d1e5672925',
+          messagingSenderId: '606191170752',
+          projectId: 'holbegram-b477b',
+          storageBucket: 'holbegram-b477b.firebasestorage.app',
+          authDomain: 'holbegram-b477b.firebaseapp.com',
+          databaseURL: 'https://holbegram-b477b-default-rtdb.firebaseio.com',
+        ),
+      );
+    }
+    return Firebase.initializeApp();
+  }
+
   @override
   void initState() {
     super.initState();
-    _firebaseInitialization = Firebase.initializeApp();
+    _firebaseInitialization = _initializeFirebase();
   }
 
   @override
