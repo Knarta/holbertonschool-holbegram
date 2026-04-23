@@ -92,11 +92,7 @@ class _SignUpState extends State<SignUp> {
                   fontSize: 50,
                 ),
               ),
-              Image.asset(
-                'assets/images/logo.png',
-                width: 80,
-                height: 60,
-              ),
+              const Icon(Icons.camera_alt_outlined, size: 52),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(

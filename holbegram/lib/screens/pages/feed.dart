@@ -18,11 +18,7 @@ class Feed extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            Image.asset(
-              'assets/images/logo.png',
-              width: 40,
-              height: 30,
-            ),
+            const Icon(Icons.camera_alt_outlined, size: 28),
           ],
         ),
         actions: const [

@@ -104,13 +104,7 @@ class _AddPictureState extends State<AddPicture> {
                         _image!,
                         fit: BoxFit.cover,
                       )
-                    : Image.asset(
-                        'assets/images/next.jpg',
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) {
-                          return const Icon(Icons.person, size: 60);
-                        },
-                      ),
+                    : const Icon(Icons.person, size: 60),
               ),
             ),
             const SizedBox(height: 24),

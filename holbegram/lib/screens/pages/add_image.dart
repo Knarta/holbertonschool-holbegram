@@ -152,14 +152,8 @@ class _AddImageState extends State<AddImage> {
                           _image!,
                           fit: BoxFit.cover,
                         )
-                      : Image.asset(
-                          'assets/images/post.jpg',
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) {
-                            return const Center(
-                              child: Icon(Icons.image, size: 80),
-                            );
-                          },
+                      : const Center(
+                          child: Icon(Icons.image, size: 80),
                         ),
                 ),
               ),
